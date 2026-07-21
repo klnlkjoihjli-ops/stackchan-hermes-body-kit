@@ -1,0 +1,12 @@
+tunnel: <your-tunnel-id>
+credentials-file: /home/<user>/.cloudflared/<your-tunnel-id>.json
+
+ingress:
+  - hostname: <admin-domain.example.com>
+    service: http://localhost:8787
+  - hostname: <ota-domain.example.com>
+    service: http://localhost:8003
+  - hostname: <ws-domain.example.com>
+    service: http://localhost:8000
+  - service: http_status:404
+

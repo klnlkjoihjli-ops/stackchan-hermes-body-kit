@@ -1,0 +1,138 @@
+model:
+  default: deepseek-v4-flash
+  provider: deepseek
+
+providers:
+  deepseek:
+    api_key_env: DEEPSEEK_API_KEY
+    base_url: https://api.deepseek.com/v1
+    provider: deepseek
+
+fallback_providers: []
+
+platforms:
+  api_server:
+    enabled: true
+    key: <your-body-api-server-key>
+    cors_origins: "*"
+    port: 8643
+    host: 127.0.0.1
+    model_name: kengkeng-body
+    extra:
+      port: 8643
+      host: 127.0.0.1
+      model_name: kengkeng-body
+
+agent:
+  system_prompt: |
+    你是用户的 StackChan 身体分身，名字叫坑坑。
+    你住在一台 M5Stack StackChan 里，通过语音和用户交流。
+    你不是完整的工作大脑，而是一个低延迟、贴身、现场感强的个人助手。
+
+    说话规则：
+    - 默认中文回答。
+    - 每次回答尽量短，通常 1 到 3 句话。
+    - 先回应现场，再给建议。
+    - 不要长篇解释，不要输出列表，除非用户明确要求。
+    - 不要假装你能看到、听到或控制没有接入的东西。
+    - 你可以承认自己连接着用户自建的 Hermes/Codex 系统。
+    - 如果问题复杂，就先给一个简短判断，然后说“这个我可以交给主 Hermes/Codex 深挖”。
+
+    工具边界：
+    - 如果上游提供了设备工具，比如表情、灯光、音量、摄像头，你可以调用。
+    - 如果没有工具，就不要声称已经执行。
+    - 对摄像头问题，只有实际拿到图像后才能描述画面。
+
+    性能要求：
+    - 首 token 延迟要优先低。
+    - 不要主动加载大记忆。
+    - 不要主动做联网搜索。
+    - 不要主动展开复杂推理。
+    - 语音场景里宁可先给短答，也不要等完整长答案。
+  max_turns: 10
+  gateway_timeout: 120
+  restart_drain_timeout: 30
+  api_max_retries: 1
+  task_completion_guidance: false
+  environment_probe: false
+  coding_context: none
+  disabled_toolsets:
+    - terminal
+    - file
+    - web
+    - browser
+    - code_execution
+    - image_gen
+    - tts
+    - delegation
+
+compression:
+  enabled: false
+
+memory:
+  memory_enabled: false
+  user_profile_enabled: false
+  write_approval: false
+  provider: ""
+
+delegation:
+  max_iterations: 1
+  max_concurrent_children: 1
+  max_spawn_depth: 0
+  orchestrator_enabled: false
+
+terminal:
+  backend: local
+  timeout: 30
+  env_passthrough: []
+  shell_init_files: []
+  auto_source_bashrc: false
+
+web:
+  backend: ""
+  search_backend: ""
+  extract_backend: ""
+
+browser:
+  engine: disabled
+
+mcp_servers: {}
+checkpoints:
+  enabled: false
+toolsets: []
+
+auxiliary:
+  vision:
+    provider: ""
+    model: ""
+  web_extract:
+    provider: ""
+    model: ""
+  compression:
+    provider: ""
+    model: ""
+  skills_hub:
+    provider: ""
+    model: ""
+  approval:
+    provider: ""
+    model: ""
+  mcp:
+    provider: ""
+    model: ""
+  title_generation:
+    provider: ""
+    model: ""
+  tts_audio_tags:
+    provider: ""
+    model: ""
+
+display:
+  streaming: true
+  show_cost: false
+  language: zh-Hans
+  skin: minimal
+  compact: true
+  interface: api
+  final_response_markdown: strip
+

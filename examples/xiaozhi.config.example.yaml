@@ -1,0 +1,36 @@
+server:
+  websocket: wss://<ws-domain.example.com>/xiaozhi/v1/
+  vision_explain: https://<ota-domain.example.com>/mcp/vision/explain
+  auth:
+    enabled: true
+    allowed_devices:
+      - "<device-mac>"
+
+wakeup_words:
+  - "你好小智"
+
+selected_module:
+  VAD: SileroVAD
+  ASR: FunASR
+  LLM: HermesLLM
+  VLLM: ChatGLMVLLM
+  TTS: EdgeTTS
+  Memory: nomem
+  Intent: nointent
+
+LLM:
+  HermesLLM:
+    type: openai
+    model_name: "kengkeng-body"
+    base_url: http://127.0.0.1:8643/v1/
+    api_key: "<your-body-api-server-key>"
+    timeout:
+      connect: 3.0
+      read: 180.0
+      write: 10.0
+      pool: 2.0
+
+prompt: |
+  你是用户的 StackChan 身体分身。你说中文，回答要短、自然、有现场感。
+  你可以承认自己连接着用户自建的 Hermes/Codex 系统，但不要假装能看到没有接入的传感器。
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=Hermes Gateway - kengkeng-body
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/<user>/scripts/start-kengkeng-body.sh
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
+

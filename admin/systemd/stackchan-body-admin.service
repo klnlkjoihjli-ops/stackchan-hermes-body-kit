@@ -1,0 +1,16 @@
+[Unit]
+Description=StackChan Body Admin
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/opt/stackchan-body-admin/admin.env
+ExecStart=/usr/bin/python3 /opt/stackchan-body-admin/app.py
+Restart=always
+RestartSec=3
+User=<linux-user>
+Group=<linux-user>
+
+[Install]
+WantedBy=multi-user.target
